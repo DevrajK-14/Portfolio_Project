@@ -1,15 +1,14 @@
-SELECT *
+-- Crossing checking with data 
+/* SELECT *
 FROM Project_Portfolio..CovidDeaths
 WHERE continent IS NOT NULL 
 ORDER BY 3,4
 
---SELECT *
---FROM Project_Portfolio..CovidVaccinations
+SELECT *
+FROM Project_Portfolio..CovidVaccinations
+*/
 
-
-		-- SELECT THE DATA WE ARE GOING TO BE USING 
-
-
+-- SELECT THE DATA WE ARE GOING TO BE USING 
 SELECT 
 location, Date, total_cases, new_cases, total_deaths, population
 FROM Project_Portfolio..CovidDeaths
