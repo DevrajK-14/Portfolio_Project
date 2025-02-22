@@ -25,13 +25,13 @@ ORDER BY 1,2
 
 -- SHOWS WHAT PERCENTAGE OF POPULATION GOT COVID in INDIA 
 SELECT 
-location, Date, total_cases,Population,
+location, Date, total_cases, Population,
 (total_cases/population)*100 AS PercentPopulationInfected 
 FROM Project_Portfolio..CovidDeaths
 WHERE location LIKE '%India%'
 ORDER BY 1,2
 
--- looking at countries with highest infection rate compared to population 
+-- looking at countries with the highest infection rate compared to the population 
 
 SELECT 
 location, population, MAX(total_cases)AS HighestInfectionCount,
@@ -49,7 +49,7 @@ WHERE continent IS NOT NULL
 GROUP BY Location
 ORDER BY TotalDeathCount DESC
 
---LETS break things down by Continent 
+-- let's break things down by Continent 
 SELECT 
 location, MAX(total_deaths) AS TotalDeathCount
 FROM Project_Portfolio..CovidDeaths
@@ -58,7 +58,7 @@ GROUP BY location
 ORDER BY TotalDeathCount DESC
 
 
--- showing the continent with highest death count 
+-- showing the continent with the highest death count 
 SELECT 
 continent, MAX(total_deaths) AS TotalDeathCount
 FROM Project_Portfolio..CovidDeaths
@@ -82,7 +82,7 @@ order by 1,2
 SELECT 
 dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations,
 SUM(vac.new_vaccinations) OVER (partition by dea.location order by dea.location, 
-dea.date) as RollingPeopleVaccinated,
+dea.date) as RollingPeopleVaccinated
 FROM Project_Portfolio..CovidDeaths dea
 JOIN Project_Portfolio..CovidVaccinations vac
 ON dea.location = vac.location
@@ -93,7 +93,7 @@ order by 2,3
 
 -- USE CTE 
 
-WITH PopvsVac (Continent,Location, Date, Population, new_vaccinations, RollingPeopleVaccinated)
+WITH PopvsVac (Continent, Location, Date, Population, new_vaccinations, RollingPeopleVaccinated)
 AS 
 (
 SELECT 
@@ -108,6 +108,3 @@ WHERE dea.continent is not NULL
 )
 SELECT *, (RollingPeopleVaccinated/population)*100
 FROM PopvsVac
-
-
--- Creating Views
